@@ -1,4 +1,4 @@
-import { ContactsOutlined, HomeOutlined, ProductOutlined } from "@ant-design/icons"
+import { HomeOutlined, ProductOutlined } from "@ant-design/icons"
 import type { MenuProps } from "antd"
 
 
@@ -10,14 +10,9 @@ export const UseMenu = () => {
             label: "Главная",
         },
         {
-            key: "/1",
+            key: "/category",
             icon: <ProductOutlined />,
-            label: "Товары",
-        },
-        {
-            key: "/2",
-            icon: <ContactsOutlined />,
-            label: "Контакты",
+            label: "Категории",
         },
     ]
     return items

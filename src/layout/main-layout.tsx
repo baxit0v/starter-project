@@ -1,7 +1,10 @@
 import { AppHeader } from "@/layout/app-header/app-header"
 import { Layout, theme } from "antd"
-import { type PropsWithChildren } from "react"
+import { useEffect, type PropsWithChildren } from "react"
 import { AppSider } from "./app-sider/app-sider"
+import { useAuthStore } from "@/store"
+import { useGetProfile } from "@/services/auth"
+import { useNavigate } from "@tanstack/react-router"
 
 const { Content } = Layout
 
@@ -10,11 +13,25 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken()
 
+    const { isAuth, logout } = useAuthStore()
+    const navigate = useNavigate()
+    const { isError } = useGetProfile()
+
+    useEffect(() => {
+        if (isError || !isAuth) {
+            logout()
+            navigate({
+                to: "/auth",
+            })
+        }
+    }, [isError, isAuth])
+
+
     return (
         <Layout>
-            <AppSider/>
+            <AppSider />
             <Layout style={{ minHeight: "100vh" }}>
-                <AppHeader/>
+                <AppHeader />
                 <Content style={{ margin: "10px" }}>
                     <div
                         style={{
